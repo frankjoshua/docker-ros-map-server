@@ -6,9 +6,9 @@ RUN apt-get update -y && \
   apt-get -y purge &&\
   rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-COPY ./ros.launch /
-COPY ./*.png /
-COPY ./*.yaml /
+RUN mkdir -p /app
+COPY ./app /app
+WORKDIR /app
 CMD ["roslaunch", "--wait", "ros.launch"]
 
 HEALTHCHECK CMD /ros_entrypoint.sh rostopic list || exit 1
